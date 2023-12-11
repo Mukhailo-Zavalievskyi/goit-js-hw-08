@@ -64,27 +64,27 @@ const images = [
       description: "Lighthouse Coast Sea",
     },
   ];
-// Створення елементів списку 
-  const galleryContainer = document.querySelector('.gallery');
+// Створення елементів списку
+const galleryContainer = document.querySelector('.gallery');
 
-  const galleryItems = images.map(({ preview, original, description }) => {
-    return `
-      <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
-          <img
-            class="gallery-image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-          />
-        </a>
-      </li>
-    `;
-  });
-  
-  galleryContainer.innerHTML = galleryItems.join('');
+const galleryItems = images.map(({ preview, original, description }) => {
+  return `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `;
+});
 
-  // Прослуховування кліка на ul.gallery
+galleryContainer.innerHTML = galleryItems.join('');
+
+// Прослуховування кліка на ul.gallery
 galleryContainer.addEventListener('click', onGalleryItemClick);
 
 function onGalleryItemClick(event) {
@@ -110,11 +110,16 @@ function openModal(largeImageUrl) {
 
   // Прослуховування клавіші Escape для закриття модального вікна
   document.addEventListener('keydown', onModalClose);
-  
+
   function onModalClose(event) {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' || event.type === 'click') {
       instance.close();
       document.removeEventListener('keydown', onModalClose);
+      document.removeEventListener('click', onModalClose);
     }
   }
+
 }
+
+
+
