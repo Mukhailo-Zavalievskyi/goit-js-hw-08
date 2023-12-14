@@ -105,21 +105,18 @@ function onGalleryItemClick(event) {
 }
 
 function openModal(largeImageUrl) {
-  const instance = basicLightbox.create(`<img src="${largeImageUrl}" alt="Large Image">`);
-  instance.show();
-
-  // Прослуховування клавіші Escape для закриття модального вікна
-  document.addEventListener('keydown', onModalClose);
-
-  function onModalClose(event) {
-    if (event.key === 'Escape' || event.type === 'click') {
-      instance.close();
-      document.removeEventListener('keydown', onModalClose);
-      document.removeEventListener('click', onModalClose);
+const instance = basicLightbox.create(`<div class = "modal"> <img src="${event.target.dataset.source}" /></div>`,{
+    onShow: () => {
+    document.addEventListener("keydown", onClick)
+    },
+    onClose: () => {
+    document.removeEventListener("keydown", onClick)
     }
+  });
+    function onClick(event) {
+  if (event.key === "Escape") {
+    instance.close();
   }
-
 }
-
-
-
+instance.show();
+}
